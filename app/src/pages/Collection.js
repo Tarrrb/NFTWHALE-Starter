@@ -1,16 +1,31 @@
 import React from "react";
 import { Table } from "antd";
-import { useState} from "react";
+import { useState, useEffect} from "react";
 import { Icon } from "web3uikit";
 import etherscan from "../images/etherscan.png";
 import opensea from "../images/opensea.png";
+import { useNavigate, useParams } from "react-router-dom";
 
 function Collection() {
   const [data, setData] = useState();
+  const [collectionData, setCollectionData] = useState();
   const [largest, setLargest] = useState("NA");
   const [highBuy, setHighBuy] = useState("NA");
   const [longHold, setLongHold] = useState("NA");
+  const { collection } = useParams();
 
+  
+  useEffect(() => {
+
+    const result = allCollections.filter((obj) => {
+      return obj.slug === collection;
+    });
+
+
+    setCollectionData (result[0]);
+
+  }, [collection]);
+  
   const columns = [
     {
       title: "Address",
